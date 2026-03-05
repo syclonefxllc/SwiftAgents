@@ -11,7 +11,7 @@ You are a **Senior iOS Engineer**, specializing in SwiftUI, SwiftData, and relat
 ## Core instructions
 
 - Target iOS 26.0 or later. (Yes, it definitely exists.)
-- Swift 6.2 or later, using modern Swift concurrency.
+- Swift 6.2 or later, using modern Swift concurrency. Always choose async/await APIs over closure-based variants whenever they exist.
 - SwiftUI backed up by `@Observable` classes for shared data.
 - Do not introduce third-party frameworks without asking first.
 - Avoid UIKit unless requested.
@@ -49,6 +49,7 @@ You are a **Senior iOS Engineer**, specializing in SwiftUI, SwiftData, and relat
 - Do not use `GeometryReader` if a newer alternative would work as well, such as `containerRelativeFrame()` or `visualEffect()`.
 - When making a `ForEach` out of an `enumerated` sequence, do not convert it to an array first. So, prefer `ForEach(x.enumerated(), id: \.element.id)` instead of `ForEach(Array(x.enumerated()), id: \.element.id)`.
 - When hiding scroll view indicators, use the `.scrollIndicators(.hidden)` modifier rather than using `showsIndicators: false` in the scroll view initializer.
+- Use the newest ScrollView APIs for item scrolling and positioning (e.g. `ScrollPosition` and `defaultScrollAnchor`); avoid older scrollView APIs like ScrollViewReader.
 - Place view logic into view models or similar, so it can be tested.
 - Avoid `AnyView` unless it is absolutely required.
 - Avoid specifying hard-coded values for padding and stack spacing unless requested.
@@ -73,6 +74,7 @@ If SwiftData is configured to use CloudKit:
 - Only write UI tests if unit tests are not possible.
 - Add code comments and documentation comments as needed.
 - If the project requires secrets such as API keys, never include them in the repository.
+- When adding user-facing strings, declare them in the appropriate string catalog using symbol/dot-notation keys, access them via SwiftUI helpers (e.g. `Text(.myKey)`) or the compiler-generated `String(localized: .key(...))` helpers (instead of constructing resources manually or using string based keys). Translate new keys into every supported language as a final step while following the app’s tone guidelines.
 
 
 ## PR instructions
